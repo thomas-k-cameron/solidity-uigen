@@ -1,0 +1,54 @@
+package main
+
+import (
+	"embed"
+	"log"
+	"os"
+
+	"github.com/ethereum/go-ethereum/accounts/abi"
+	"github.com/wailsapp/wails/v2"
+	"github.com/wailsapp/wails/v2/pkg/options"
+	"github.com/wailsapp/wails/v2/pkg/options/assetserver"
+)
+
+//go:embed all:frontend/dist
+var assets embed.FS
+
+func stuff() {
+	r, err := os.Open("test/test1.json")
+	if err != nil {
+		log.Fatal(err)
+		return
+	}
+
+	abi, err := abi.JSON(r)
+	if err != nil {
+		log.Fatal(err)
+		return
+	}
+	log.Println(abi.Constructor.RawName)
+}
+
+func main() {
+	// Create an instance of the app structure
+	app := NewApp()
+
+	// Create application with options
+	err := wails.Run(&options.App{
+		Title:  "solidity-uigen",
+		Width:  1024,
+		Height: 768,
+		AssetServer: &assetserver.Options{
+			Assets: assets,
+		},
+		BackgroundColour: &options.RGBA{R: 27, G: 38, B: 54, A: 1},
+		OnStartup:        app.startup,
+		Bind: []interface{}{
+			app,
+		},
+	})
+
+	if err != nil {
+		println("Error:", err.Error())
+	}
+}

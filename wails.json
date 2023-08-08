@@ -1,0 +1,13 @@
+{
+  "$schema": "https://wails.io/schemas/config.v2.json",
+  "name": "solidity-uigen",
+  "outputfilename": "solidity-uigen",
+  "frontend:install": "npm install",
+  "frontend:build": "npm run build",
+  "frontend:dev:watcher": "npm run dev",
+  "frontend:dev:serverUrl": "auto",
+  "author": {
+    "name": "Thomas Cameron",
+    "email": "68596478+thomas-k-cameron@users.noreply.github.com"
+  }
+}
